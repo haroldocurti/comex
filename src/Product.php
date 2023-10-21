@@ -15,12 +15,6 @@ class Product
     private float $price;
     private int $stock;
 
-    /**
-     * @param int $productID
-     * @param String $name
-     * @param float $price
-     * @param int $stock
-     */
     public function __construct(int $productID, string $name, float $price, int $stock)
     {
         $this->productID = $productID;

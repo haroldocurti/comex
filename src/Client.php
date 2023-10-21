@@ -10,21 +10,16 @@ namespace Haroldocurti\Comex;
 
 class Client
 {
-    private string $cpf;
-    private String $name;
-    private String $email;
-    private String $mobile;
-    private String $address;
-    private String $totalSpent;
     private array $orders = [];
-
-    public function __construct(string $cpf, string $name, string $email, string $mobile, string $address)
+    private string $totalSpent = '0';
+    public function __construct(
+        private readonly string $cpf,
+        private string          $name,
+        private string          $email,
+        private string          $phoneNumber,
+        private string          $address)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->mobile = $mobile;
-        $this->address = $address;
-        $this->cpf = $cpf;
+
     }
 
 
@@ -48,14 +43,14 @@ class Client
         $this->name = $name;
     }
 
-    public function getMobile(): string
+    public function getPhoneNumber(): string
     {
-        return $this->mobile;
+        return $this->phoneNumber;
     }
 
-    public function setMobile(string $mobile): void
+    public function setPhoneNumber(string $phoneNumber): void
     {
-        $this->mobile = $mobile;
+        $this->phoneNumber = $phoneNumber;
     }
 
     public function getTotalSpent(): string
@@ -86,4 +81,11 @@ class Client
         $this->orders[] = $orderID;
     }
 
+    function formatPhoneNumber($phoneNumber) {
+        $cleanedNumber = preg_replace('/\D/', '', $phoneNumber);
+        if (preg_match('/^(\d{2})(\d{5})(\d{4})$/', $cleanedNumber, $matches)) {
+            return "({$matches[1]}) {$matches[2]}-{$matches[3]}";
+        }
+        return $phoneNumber;
+    }
 }
