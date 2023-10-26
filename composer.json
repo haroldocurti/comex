@@ -1,0 +1,16 @@
+{
+    "name": "haroldocurti/comex",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Haroldocurti\\Comex\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "haroldocurti",
+            "email": "haroldocurti@gmail.com"
+        }
+    ],
+    "require": {}
+}
