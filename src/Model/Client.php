@@ -1,12 +1,5 @@
 <?php
-/*
-Tarefa: Criar uma classe de Client
-Para praticar objetos.
-Crie uma classe chamada 'Client', ela deve conter os dados básicos do cliente (nome, e-mail, celular e
-endereço) e também o total de compras realizadas pelo mesmo. Lembre-se de criar os métodos getters e
-setters. Após criar a classe e atribuir seus valores, exiba os valores atribuídos à classe.
- */
-namespace Haroldocurti\Comex;
+namespace Haroldocurti\Comex\Model;
 
 class Client
 {

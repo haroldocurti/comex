@@ -6,21 +6,24 @@ Crie uma classe chamada 'Product', ela deve conter os dados de nome, preço e qu
 Implemente métodos que adicionam ou removem produtos e implemente um método que exiba o valor total
 em produtos no estoque (produtos * quantidade).
  */
-namespace Haroldocurti\Comex;
+namespace Haroldocurti\Comex\Model;
+
+use Haroldocurti\Comex\Service\OutOfStockException;
+use http\Exception\InvalidArgumentException;
 
 class Product
 {
     private int $productID;
     private String $name;
     private float $price;
-    private int $stock;
+    private int $stockQuantity;
 
-    public function __construct(int $productID, string $name, float $price, int $stock)
+    public function __construct(int $productID, string $name, float $price, int $stockQuantity)
     {
         $this->productID = $productID;
         $this->name = $name;
         $this->price = $price;
-        $this->stock = $stock;
+        $this->stockQuantity = $stockQuantity;
     }
 
     public function getName(): string
@@ -35,6 +38,7 @@ class Product
 
     private function setName(string $name): void
     {
+        if (is_null($name)) throw new InvalidArgumentException();
         $this->name = $name;
     }
 
@@ -45,32 +49,40 @@ class Product
 
     private function setPrice(float $price): void
     {
+        if ($price<=0) throw new InvalidArgumentException();
         $this->price = $price;
     }
 
-    public function getStock(): int
+    public function getStockQuantity(): int
     {
-        return $this->stock;
+        return $this->stockQuantity;
     }
 
     private function setStock(int $stock): void
     {
-        $this->stock = $stock;
+        if ($stock<=0) throw new InvalidArgumentException();
+        $this->stockQuantity = $stock;
     }
 
     public function addToStock(int $quantity): void
     {
-        $this->setStock($this->getStock()+$quantity);
+        if ($quantity<=0) throw new InvalidArgumentException();
+        $this->setStock($this->getStockQuantity()+$quantity);
     }
-    public function removeFromStock(int $quantity): bool
+
+    /**
+     * @throws OutOfStockException
+     */
+    public function removeFromStock(int $quantity): void
     {
-        if ($this->getStock() > $quantity){
-            $this->setStock($this->getStock()+$quantity);
-            return true;
+        if ($quantity<=0) throw new InvalidArgumentException();
+        if ($this->getStockQuantity() > $quantity){
+            $this->setStock($this->getStockQuantity()-$quantity);
+            return ;
         }
-        return false;
+        throw new OutOfStockException() ;
     }
     public function calculateStockValue() : float {
-        return $this->getStock() * $this->getPrice();
+        return $this->getStockQuantity() * $this->getPrice();
     }
 }

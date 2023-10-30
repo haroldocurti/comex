@@ -1,15 +1,15 @@
 <?php
-include_once 'Product.php';
-include_once 'Order.php';
-include_once 'Client.php';
-include_once 'fakeDBS.php';
-use Haroldocurti\Comex\Client;
-use Haroldocurti\Comex\Order;
-use Haroldocurti\Comex\Product;
+include_once '../vendor/autoload.php';
+include_once 'db/fakeDBS.php';
+
+use Haroldocurti\Comex\Model\Client;
+use Haroldocurti\Comex\Model\Order;
+use Haroldocurti\Comex\Model\Stock;
 
 global $productList; //fakeDB
 global $clientDB;
 
+$stock = new Stock($productList);
 $client = new Client('987.654.321-11', $clientDB['987.654.321-11']['name'], $clientDB['987.654.321-11']["e-mail"], $clientDB['987.654.321-11']['phone'], $clientDB['987.654.321-11']['address']);
 $products = [
     [
