@@ -1,7 +1,8 @@
 <?php
-include_once 'Client.php';
-include_once 'fakeDBS.php';
-use Haroldocurti\Comex\Client;
+include_once '../vendor/autoload.php';
+include_once 'db/fakeDBS.php';
+use Haroldocurti\Comex\Model\Client;
+
 global $clientDB; //fakeDB
 
 //load clients int mem

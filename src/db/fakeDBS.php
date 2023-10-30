@@ -1,4 +1,19 @@
 <?php
+$orderList = [
+    20231029 => [
+        'client' => "456.789.123-99",
+        'shipping' => 0,
+        'products' => [
+            100 => [
+                'quantity' => 1
+            ],
+            102 => [
+                'quantity' => 1
+            ]
+
+        ]
+    ]
+];
 $productList = [
     100 => [
         'name' => 'Super Mario World',
@@ -53,7 +68,7 @@ $productList = [
     110 => [
         'name' => 'Super Mario RPG: Legend of the Seven Stars',
         'price' => 69.99,
-        'stock' => 8
+        'stock' => 1
     ],
     111 => [
         'name' => 'Secret of Mana',

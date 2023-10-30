@@ -1,10 +1,10 @@
 <?php
-include_once 'Product.php';
-include_once 'Client.php';
-include_once 'ShoppingCart.php';
-include_once 'fakeDBS.php';
-use Haroldocurti\Comex\Client;
-use Haroldocurti\Comex\ShoppingCart;
+include_once '../vendor/autoload.php';
+include_once 'db/fakeDBS.php';
+
+use Haroldocurti\Comex\Model\Client;
+use Haroldocurti\Comex\Model\ShoppingCart;
+
 global $productList; //fakeDB
 global $clientDB; //fakeDB
 
