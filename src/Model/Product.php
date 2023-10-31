@@ -1,11 +1,4 @@
 <?php
-/*
-Tarefa: Criar uma classe de Product
-Para praticar objetos.
-Crie uma classe chamada 'Product', ela deve conter os dados de nome, preço e quantidade em estoque.
-Implemente métodos que adicionam ou removem produtos e implemente um método que exiba o valor total
-em produtos no estoque (produtos * quantidade).
- */
 namespace Haroldocurti\Comex\Model;
 
 use Haroldocurti\Comex\Service\OutOfStockException;
