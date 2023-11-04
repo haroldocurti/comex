@@ -38,12 +38,12 @@ class Client
 
     public function getPhoneNumber(): string
     {
-        return $this->phoneNumber;
+        return $this->formatPhoneNumber($this->phoneNumber);
     }
 
     public function setPhoneNumber(string $phoneNumber): void
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phoneNumber = $this->formatPhoneNumber($this->phoneNumber);
     }
 
     public function getTotalSpent(): string
@@ -66,6 +66,11 @@ class Client
         return $this->orders;
     }
 
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
     private function setOrders(array $orders): void
     {
         $this->orders = $orders;
@@ -76,7 +81,7 @@ class Client
 
     function formatPhoneNumber($phoneNumber) {
         $cleanedNumber = preg_replace('/\D/', '', $phoneNumber);
-        if (preg_match('/^(\d{2})(\d{5})(\d{4})$/', $cleanedNumber, $matches)) {
+        if (preg_match('/^(\d{2})(\d{4})(\d{4})$/', $cleanedNumber, $matches)) {
             return "({$matches[1]}) {$matches[2]}-{$matches[3]}";
         }
         return $phoneNumber;

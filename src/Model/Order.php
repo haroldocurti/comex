@@ -64,4 +64,9 @@ class Order
     {
         return $this->products;
     }
+
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
 }

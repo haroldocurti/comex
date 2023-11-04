@@ -9,7 +9,9 @@ use Haroldocurti\Comex\Service\Shipping;
 
 class ShoppingCart
 {
-    public function __construct(private readonly Client $client, private Stock $stock, private array $cartProducts = [])
+    public function __construct(private readonly Client $client,
+                                private Stock $stock,
+                                private array $cartProducts = [])
     {
 
     }
@@ -40,7 +42,7 @@ class ShoppingCart
                     unset($this->cartProducts[$productID]);
                     return;
                 }
-        $this->cartProducts[$productID]['quantity'] = $this->cartProducts[$productID]['quantity'] - 1;
+        $this->cartProducts[$productID]['quantity'] = $this->cartProducts[$productID]['quantity'] - $quantity;
     }
     public function getCartSummary(): float{
         echo "Hello, " . $this->getClient()->getName() . " this is your updated shopping cart: ".PHP_EOL;
@@ -77,4 +79,9 @@ class ShoppingCart
 
         return new Order($this->client, $this->cartProducts);
 }
+
+    public function getCartProducts():array
+    {
+        return $this->cartProducts;
+    }
 }
