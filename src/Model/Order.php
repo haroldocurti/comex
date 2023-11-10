@@ -1,8 +1,5 @@
 <?php
-/*
-Tarefa: Criar uma classe de Pedido. Para praticar objetos Crie uma classe base chamada ‘Pedido',
-ela deve conter os dados básicos de um pedido, como: id, cliente e produtos.
- */
+
 namespace Haroldocurti\Comex\Model;
 
 use Haroldocurti\Comex\Service\Discounts;
@@ -22,8 +19,8 @@ class Order
     private function generateOrderId(): int{
         return date('Ymd') . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
     }
-    public function addProductsToOrder(array $product, Stock $stock): void {
-
+    public function addProductsToOrder(array $product): void {
+            $this->products[]= $product;
         }
     public function removeProductsFromOrder(int $productID): void {
         foreach ($this->products as $id => &$product) {
@@ -61,5 +58,15 @@ class Order
                 }
         $summary .= "Total: $$totalSpent" . PHP_EOL;
         return $summary;
+    }
+
+    public function getProducts():array
+    {
+        return $this->products;
+    }
+
+    public function getClient(): Client
+    {
+        return $this->client;
     }
 }
