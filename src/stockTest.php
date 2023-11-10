@@ -2,7 +2,7 @@
 
 use Haroldocurti\Comex\Model\Stock;
 
-include_once '../vendor/autoload.php';
+stockTest.php
 include_once 'db/fakeDBS.php';
 
 $extra = [190 => [

@@ -7,21 +7,21 @@ use http\Exception\InvalidArgumentException;
 class Product
 {
     private int $productID;
-    private String $name;
-    private float $price;
+    private String $productName;
+    private float $productPrice;
     private int $stockQuantity;
 
-    public function __construct(int $productID, string $name, float $price, int $stockQuantity)
+    public function __construct(int $productID, string $name, float $price, int $stockQuantity = 0)
     {
         $this->productID = $productID;
-        $this->name = $name;
-        $this->price = $price;
+        $this->productName = $name;
+        $this->productPrice = $price;
         $this->stockQuantity = $stockQuantity;
     }
 
-    public function getName(): string
+    public function getProductName(): string
     {
-        return $this->name;
+        return $this->productName;
     }
 
     public function getProductID(): int
@@ -32,18 +32,18 @@ class Product
     private function setName(string $name): void
     {
         if (is_null($name)) throw new InvalidArgumentException();
-        $this->name = $name;
+        $this->productName = $name;
     }
 
-    public function getPrice(): float
+    public function getProductPrice(): float
     {
-        return $this->price;
+        return $this->productPrice;
     }
 
     private function setPrice(float $price): void
     {
         if ($price<=0) throw new InvalidArgumentException();
-        $this->price = $price;
+        $this->productPrice = $price;
     }
 
     public function getStockQuantity(): int
@@ -76,6 +76,6 @@ class Product
         throw new OutOfStockException() ;
     }
     public function calculateStockValue() : float {
-        return $this->getStockQuantity() * $this->getPrice();
+        return $this->getStockQuantity() * $this->getProductPrice();
     }
 }
