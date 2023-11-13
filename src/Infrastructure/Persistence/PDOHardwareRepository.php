@@ -10,17 +10,15 @@ use PDOStatement;
 
 class PDOHardwareRepository implements ProductsRepository
 {
-    private PDO $DB;
-    public function __construct(PDO $connection)
-    {
-        $this->DB = $connection;
-    }
 
-    public function allProducts(): array
+    public function allProducts($hardware): array
     {
-
-        $statement = $this->DB->query('SELECT * FROM hardware');
-        return $this->hydrateHardwareObj($statement);
+        foreach ($hardware as $index => $item) {
+            echo $item->getProductName() .
+                ' Produced by '. $item->getManufacturer() .
+                ' Under the category of ' . $item->getCategory() . PHP_EOL;
+        }
+        return $hardware;
 
     }
 
@@ -33,20 +31,5 @@ class PDOHardwareRepository implements ProductsRepository
         return $this->hydrateHardwareObj($statement);
     }
 
-    public function hydrateHardwareObj(PDOStatement $statement): array
-    {
-        $allProducts = [];
-        while ($hardwareData = $statement->fetch(PDO::FETCH_ASSOC)){
-            $allProducts[]= new Hardware(
-                productID: $hardwareData['hardware_ID'],
-                productName: $hardwareData['hardware_name'],
-                productPrice: $hardwareData['hardware_price'],
-                category: $hardwareData['hardware_category'],
-                releaseDate: $hardwareData['hardware_release_date'],
-                manufacturer: $hardwareData['hardware_manufacturer'],
-                stockQuantity: 0
-            );
-        }
-        return $allProducts;
-    }
+
 }

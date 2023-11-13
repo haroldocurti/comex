@@ -2,11 +2,13 @@
 
 namespace Haroldocurti\Comex\Infrastructure\Persistence;
 
+use Haroldocurti\Comex\Model\Client;
 use Haroldocurti\Comex\Model\Games;
+use Haroldocurti\Comex\Model\Hardware;
 use PDO;
 use PDOStatement;
 
-class GamesDao
+class Dao
 {
     private PDO $DB;
     public function __construct()
@@ -41,6 +43,13 @@ class GamesDao
         $statement = $this->DB->query($sql);
         return $this->hydrateHardwareObj($statement);
     }
+
+    public function fetchAllClients():array
+    {
+        $sql = 'SELECT * FROM clients_db';
+        $statement = $this->DB->query($sql);
+        return $this->hydrateClientObj($statement);
+    }
     public function hydrateGameObj(PDOStatement $statement): array
     {
         $allProducts = [];
@@ -58,5 +67,40 @@ class GamesDao
             );
         }
         return $allProducts;
+    }
+    public function hydrateHardwareObj(PDOStatement $statement): array
+    {
+        $allProducts = [];
+        while ($hardwareData = $statement->fetch(PDO::FETCH_ASSOC)){
+            $allProducts[]= new Hardware(
+                productID: $hardwareData['hardware_ID'],
+                productName: $hardwareData['hardware_name'],
+                productPrice: $hardwareData['hardware_price'],
+                category: $hardwareData['hardware_category'],
+                releaseDate: $hardwareData['hardware_release_date'],
+                manufacturer: $hardwareData['hardware_manufacturer'],
+                stockQuantity: 0
+            );
+        }
+        return $allProducts;
+    }
+    public function hydrateClientObj(PDOStatement $statement): array
+    {
+        $allClients = [];
+        while ($clientData = $statement->fetch(PDO::FETCH_ASSOC)){
+            $client = new Client(
+                $clientData['client_id'],
+                $clientData['client_cpf'],
+                $clientData['client_name'],
+                $clientData['client_email'],
+                $clientData['client_phone'],
+                $clientData['client_address']
+            );
+            if ($clientData['client_orders'] != '') {
+                $client->setOrders($clientData['client_orders']);
+            }
+            $allClients[] = $client;
+        }
+        return $allClients;
     }
 }

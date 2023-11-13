@@ -6,6 +6,7 @@ class Client
     private array $orders = [];
     private string $totalSpent = '0';
     public function __construct(
+        private string          $client_id,
         private readonly string $cpf,
         private string          $name,
         private string          $email,
@@ -13,6 +14,16 @@ class Client
         private string          $address)
     {
 
+    }
+
+    public function getClientId(): string
+    {
+        return $this->client_id;
+    }
+
+    public function setClientId(string $client_id): void
+    {
+        $this->client_id = $client_id;
     }
 
 
@@ -71,7 +82,7 @@ class Client
         return $this->email;
     }
 
-    private function setOrders(array $orders): void
+    public function setOrders(array $orders): void
     {
         $this->orders = $orders;
     }
