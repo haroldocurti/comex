@@ -20,4 +20,9 @@ class PDOClientsRepository
     {
         return $dao->fetchSingleClient($client_id);
     }
+
+    public function insertClient(Client $client, Dao $dao): void
+    {
+        $dao->insertClient($client);
+    }
 }

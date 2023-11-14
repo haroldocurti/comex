@@ -160,4 +160,16 @@ class Dao
         return $allOrders;
 
     }
+
+    public function insertClient(Client $client)
+    {
+        $sql = 'INSERT INTO clients_db (client_name, client_cpf, client_email, client_phone, client_address) VALUES (:client_name, :client_cpf, :client_email, :client_phone, :client_address)';
+        $statement = $this->DB->prepare($sql);
+        $statement->bindValue(':client_name',$client->getName() );
+        $statement->bindValue(':client_cpf',$client->getCpf() );
+        $statement->bindValue(':client_email',$client->getEmail() );
+        $statement->bindValue(':client_phone',$client->getPhoneNumber() );
+        $statement->bindValue(':client_address',$client->getAddress() );
+        $statement->execute();
+    }
 }

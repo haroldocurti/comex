@@ -1,4 +1,19 @@
 <?php
+
+use Haroldocurti\Comex\Model\Client;
+
+require_once 'vendor/autoload.php';
+require './src/config.php';
+    global $clientsRepository;
+    global $dao;
+
+    if( $_SERVER['REQUEST_METHOD'] === 'POST'){
+        $client = new Client('01', $_POST["cpf"],
+        $_POST['name'],$_POST['email'],$_POST['phone'],$_POST['address']);
+        echo $client->getName();
+        $clientsRepository->insertClient($client, $dao);
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +33,7 @@
         <input type="text" id="name" name="name" required>
 
         <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required>
+        <input type="text" id="cpf" name="cpf" maxlength="14" required>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
