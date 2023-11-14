@@ -2,6 +2,8 @@
 
 namespace Haroldocurti\Comex\Infrastructure\Persistence;
 
+use Haroldocurti\Comex\Model\Client;
+
 class PDOClientsRepository
 {
     public function allClients($clients): array
@@ -12,5 +14,10 @@ class PDOClientsRepository
                 ' and Email ' . $client->getEmail() . PHP_EOL;
         }
         return $clients;
+    }
+
+    public function clientById(Dao $dao, int $client_id): Client
+    {
+        return $dao->fetchSingleClient($client_id);
     }
 }

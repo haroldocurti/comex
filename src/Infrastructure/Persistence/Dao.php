@@ -5,6 +5,7 @@ namespace Haroldocurti\Comex\Infrastructure\Persistence;
 use Haroldocurti\Comex\Model\Client;
 use Haroldocurti\Comex\Model\Games;
 use Haroldocurti\Comex\Model\Hardware;
+use Haroldocurti\Comex\Model\Order;
 use PDO;
 use PDOStatement;
 
@@ -49,6 +50,29 @@ class Dao
         $sql = 'SELECT * FROM clients_db';
         $statement = $this->DB->query($sql);
         return $this->hydrateClientObj($statement);
+    }
+
+    public function fetchSingleClient(int $client_id) : Client
+    {
+        $statement = $this->DB->query('SELECT * FROM clients_db WHERE client_id == ' . $client_id);
+        return $this->hydrateSingleClient($statement);
+    }
+
+    public function fetchAllOrders():array
+    {
+        $sql='
+        SELECT
+            order_id,
+            order_date,
+            clients_db.client_id,
+            clients_db.client_name
+        FROM
+            orders_db
+                JOIN
+            clients_db ON clients_db.client_id = orders_db.client_id;
+        ';
+        $statement = $this->DB->query($sql);
+        return $this->hydrateOrderObj($statement);
     }
     public function hydrateGameObj(PDOStatement $statement): array
     {
@@ -102,5 +126,38 @@ class Dao
             $allClients[] = $client;
         }
         return $allClients;
+    }
+    public function hydrateSingleClient(PDOStatement $statement): Client{
+    $clientData = $statement->fetch(PDO::FETCH_ASSOC);
+            $client = new Client(
+                $clientData['client_id'],
+                $clientData['client_cpf'],
+                $clientData['client_name'],
+                $clientData['client_email'],
+                $clientData['client_phone'],
+                $clientData['client_address']
+            );
+            if ($clientData['client_orders'] != '') {
+                $client->setOrders($clientData['client_orders']);
+            }
+            return $client;
+        }
+    public function hydrateOrderObj(PDOStatement $statement): array
+    {
+
+        $allOrders = [];
+        while ($orderData = $statement->fetch(PDO::FETCH_ASSOC)){
+            $stmt = $this->DB->query(query: 'SELECT ordered_item_id, order_id, ordered_product_id, ordered_product_quantity, ordered_product_price, main.view_All_Products.game_name, main.view_All_Products.game_platform  FROM ordered_items_db JOIN view_All_Products ON ordered_product_id == main.view_All_Products.game_prod_id WHERE order_id == ' . $orderData['order_id'] .';');
+            while($productsData = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+                $orderProducts = $productsData;
+            }
+            $allOrders[]= new Order(
+                $orderData['order_id'],
+                $this->fetchSingleClient($orderData['client_id']),
+                $orderProducts
+            );
+        }
+        return $allOrders;
+
     }
 }
