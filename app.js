@@ -1,16 +1,11 @@
-// formScript.js
-
-// Show/hide fields based on the selected product type
 const hardwareFields = document.getElementById('hardwareFields');
 const gamesFields = document.getElementById('gamesFields');
 const hardwareRadio = document.getElementById('hardware');
 const gamesRadio = document.getElementById('games');
-
 hardwareRadio.addEventListener('change', function () {
     hardwareFields.style.display = 'block';
     gamesFields.style.display = 'none';
 });
-
 gamesRadio.addEventListener('change', function () {
     hardwareFields.style.display = 'none';
     gamesFields.style.display = 'block';
