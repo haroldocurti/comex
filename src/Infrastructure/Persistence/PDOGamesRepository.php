@@ -12,11 +12,11 @@ class PDOGamesRepository implements ProductsRepository
     public function allProducts($games): array
     {
 
-        foreach ($games as $index => $game) {
-            echo $game->getProductName() .
-                ' Developed by '. $game->getDeveloper() .
-                ' and Published by ' . $game->getPublisher() . PHP_EOL;
-        }
+     //   foreach ($games as $index => $game) {
+     //       echo $game->getProductName() . PHP_EOL;
+     //           ' Developed by '. $game->getDeveloper() .
+     //           ' and Published by ' . $game->getPublisher() . PHP_EOL;
+     ///   }
         return $games;
 
 
