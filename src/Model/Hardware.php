@@ -10,7 +10,7 @@ class Hardware extends Product
     private string $category;
     private string $releaseDate;
     private string $manufacturer;
-    private int $stockQuantity = 0;
+    private int $stockQuantity;
 
     /**
      * @param int $productID
@@ -29,6 +29,7 @@ class Hardware extends Product
         $this->category = $category;
         $this->releaseDate = $releaseDate;
         $this->manufacturer = $manufacturer;
+        $this->stockQuantity = $stockQuantity;
     }
 
 

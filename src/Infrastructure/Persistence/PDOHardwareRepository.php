@@ -31,5 +31,8 @@ class PDOHardwareRepository implements ProductsRepository
         return $this->hydrateHardwareObj($statement);
     }
 
-
+    public function insertHardware(Hardware $hw, DAO $DAO)
+    {
+        $DAO->insertHardwareProduct($hw);
+    }
 }

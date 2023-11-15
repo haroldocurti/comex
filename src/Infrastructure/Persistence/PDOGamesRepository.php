@@ -3,6 +3,7 @@
 namespace Haroldocurti\Comex\Infrastructure\Persistence;
 
 
+use Haroldocurti\Comex\Model\Games;
 use PDO;
 
 class PDOGamesRepository implements ProductsRepository
@@ -41,6 +42,9 @@ class PDOGamesRepository implements ProductsRepository
 
         return $this->hydrateGameObj($statement);
     }
-
+    public function insertGame(Games $game, Dao $dao)
+    {
+        $dao->insertGameProduct($game);
+    }
 
 }

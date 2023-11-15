@@ -1,4 +1,38 @@
 <?php
+
+use Haroldocurti\Comex\Model\Games;
+use Haroldocurti\Comex\Model\Hardware;
+require_once 'vendor/autoload.php';
+require './src/config.php';
+global $hardwareRepository;
+global $gameRepository;
+global $dao;
+if( $_SERVER['REQUEST_METHOD'] === 'POST'){
+    if ($_POST["productType"] == "hardware"){
+        $hw = new Hardware(
+                01,
+            $_POST['productName'],
+            $_POST['productPrice'],
+            $_POST['category'],
+            $_POST['releaseDate'],
+            $_POST['manufacturer'],
+            $_POST['stock']);
+        $hardwareRepository->insertHardware($hw, $dao);
+    }
+    if ($_POST["productType"] == "games"){
+        $game = new Games(
+            01,
+            $_POST['productName'],
+            $_POST['productPrice'],
+            $_POST['genre'],
+            $_POST['releaseDate'],
+            $_POST['platform'],
+            $_POST['developer'],
+            $_POST['publisher'],
+            $_POST['stock']);
+        $gameRepository->insertGame($game, $dao);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,8 +58,12 @@
         <label for="productName">Name:</label><br>
         <input type="text" id="productName" name="productName" required><br>
 
+        <label for="stock">Quantity in Stock:</label><br>
+        <input type="text" id="stock" name="stock" required><br>
+
+
         <label for="productPrice">Price:</label><br>
-        <input type="number" id="productPrice" name="productPrice" required><br>
+        <input type="number" step="0.01" id="productPrice" name="productPrice" required><br>
 
         <label for="releaseDate">Release Date:</label><br>
         <input type="date" id="releaseDate" name="releaseDate" required><br>
@@ -55,7 +93,8 @@
                 <option value="puzzle">Puzzle</option>
                 <option value="rpg">RPG</option>
             </select><br>
-
+            <label for="platform">Platform:</label><br>
+            <input type="text" id="platform" name="platform"><br>
             <label for="developer">Developer:</label><br>
             <input type="text" id="developer" name="developer"><br>
 

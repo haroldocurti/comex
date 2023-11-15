@@ -87,7 +87,7 @@ class Dao
                 platform: $gameData['game_platform'],
                 developer: $gameData['dev_name'],
                 publisher: $gameData['publi_name'],
-                stockQuantity: 0
+                stockQuantity: $gameData['game_stock']
             );
         }
         return $allProducts;
@@ -103,7 +103,7 @@ class Dao
                 category: $hardwareData['hardware_category'],
                 releaseDate: $hardwareData['hardware_release_date'],
                 manufacturer: $hardwareData['hardware_manufacturer'],
-                stockQuantity: 0
+                stockQuantity: $hardwareData['hardware_stock']
             );
         }
         return $allProducts;
@@ -170,6 +170,65 @@ class Dao
         $statement->bindValue(':client_email',$client->getEmail() );
         $statement->bindValue(':client_phone',$client->getPhoneNumber() );
         $statement->bindValue(':client_address',$client->getAddress() );
+        $statement->execute();
+    }
+
+    public function insertHardwareProduct(Hardware $hardware)
+    {
+        $sql = 'INSERT INTO hardware (
+                      hardware_name, 
+                      hardware_category, 
+                      hardware_price, 
+                      hardware_release_date, 
+                      hardware_manufacturer,
+                      hardware_stock) 
+                    VALUES (
+                            :hwName,
+                            :hwCategory,
+                            :hwPrice,
+                            :hwReleaseDate,
+                            :hwManufacturer,
+                            :hwStock
+                            );';
+        $statement = $this->DB->prepare($sql);
+        $statement->bindValue(':hwName', $hardware->getProductName() );
+        $statement->bindValue(':hwCategory', $hardware->getCategory() );
+        $statement->bindValue(':hwPrice', $hardware->getProductPrice() );
+        $statement->bindValue(':hwReleaseDate', $hardware->getReleaseDate() );
+        $statement->bindValue(':hwManufacturer', $hardware->getManufacturer() );
+        $statement->bindValue(':hwStock', $hardware->getStockQuantity() );
+        $statement->execute();
+    }
+
+    public function insertGameProduct(Games $game)
+    {
+        $sql = 'INSERT INTO games (
+                   game_genre, 
+                   game_name, 
+                   game_platform, 
+                   game_price, 
+                   game_developer_id, 
+                   game_publisher_id, 
+                   game_release_date, 
+                   game_stock
+                   ) VALUES (:genre,
+                                       :name,
+                                       :platform,
+                                       :price, 
+                                       :developer, 
+                                       :publisher, 
+                                       :release, 
+                                       :stock
+                                       );';
+        $statement = $this->DB->prepare($sql);
+        $statement->bindValue(':genre',$game->getGenre() );
+        $statement->bindValue(':name',$game->getProductName() );
+        $statement->bindValue(':platform',$game->getPlatform() );
+        $statement->bindValue(':price',$game->getProductPrice() );
+        $statement->bindValue(':developer',$game->getDeveloper() );
+        $statement->bindValue(':publisher',$game->getPublisher() );
+        $statement->bindValue(':release',$game->getReleaseDate() );
+        $statement->bindValue(':stock',$game->getStockQuantity() );
         $statement->execute();
     }
 }

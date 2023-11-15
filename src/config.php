@@ -11,7 +11,3 @@ $dao = new Dao();
 $hardwareRepository= new PDOHardwareRepository();
 $gameRepository = new PDOGamesRepository();
 $clientsRepository = new PDOClientsRepository();
-global $hardwareRepository;
-global $gameRepository;
-global $clientsRepository;
-global $dao;
