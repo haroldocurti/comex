@@ -17,6 +17,7 @@ class Games extends Product
     private string $developer;
     private string $publisher;
     private int $stockQuantity;
+    private string $gameVideo;
 
     /**
      * @param int $productID
@@ -28,8 +29,9 @@ class Games extends Product
      * @param string $developer
      * @param string $publisher
      * @param int $stockQuantity
+     * @param string $gameVideo
      */
-    public function __construct(int $productID, string $productName, float $productPrice, string $genre, string $releaseDate, string $platform, string $developer, string $publisher, int $stockQuantity)
+    public function __construct(int $productID, string $productName, float $productPrice, string $genre, string $releaseDate, string $platform, string $developer, string $publisher, int $stockQuantity, string $gameVideo)
     {
         $this->productID = $productID;
         $this->productName = $productName;
@@ -40,6 +42,18 @@ class Games extends Product
         $this->developer = $developer;
         $this->publisher = $publisher;
         $this->stockQuantity = $stockQuantity;
+        $this->gameVideo = $gameVideo;
+
+    }
+
+    public function getGameVideo(): string
+    {
+        return $this->gameVideo;
+    }
+
+    public function setGameVideo(string $gameVideo): void
+    {
+        $this->gameVideo = $gameVideo;
     }
 
 

@@ -9,16 +9,17 @@ $games = $gameRepository->allProducts($dao->fetchAllGames());
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Comex Mock Site</title>
+    <title>Comex Retro Games Store</title>
 </head>
 <body>
 
 <div class="top-bar">
+    <div class="site-name">🎮Comex Retro Games</div>
     <nav>
         <ul>
-            <li><a href="product_form.php">Product Form</a></li>
-            <li><a href="client_form.php">Client Form</a></li>
-            <li><a href="orders.php">Orders</a></li>
+            <li><a href="game_catalogue.php">Games Catalogue</a></li>
+            <li><a href="hardware_catalogue.php">Consoles and Hardware</a></li>
+            <li><a href="contact.php">Contact</a></li>
         </ul>
     </nav>
 </div>
@@ -26,14 +27,27 @@ $games = $gameRepository->allProducts($dao->fetchAllGames());
 <div class="content-container">
     <h1>Welcome!</h1>
     <h2>Our latest products!</h2>
-    <?php
-          foreach ($games as $id => $game) {
-                if ($id > count($games)-5) {
-                    echo '<h3>' . $game->getProductName() . '</h3>(by '.$game->getPublisher() . ')';
-                    echo '<p><button> Buy it now</button> for just U$'. $game->getProductPrice() .'<br></p>';
-                }
+    <div class="product-cards">
+        <?php
+        foreach ($games as $id => $game) {
+            if ($id > count($games) - 4) {
+                echo '<div class="product-card">';
+                echo '<h3>' . $game->getProductName() . '</h3>(by ' . $game->getPublisher() . ')';
+                echo '<p><button>Buy it now</button> for just U$' . $game->getProductPrice() . '<br>';
+                echo '⬇Watch a Video Preview!⬇</p>';
+                echo $game->getGameVideo();
+                echo '</div>';
+            }
         }
         ?>
+    </div>
+    <h2>Our Full Catalogue!!</h2>
+    <?php
+    foreach ($games as $id => $game) {
+            echo  '🎮' . $game->getProductName() . '<small> (by ' . $game->getPublisher() . ') </small>';
+            echo '<button> Buy it now</button> for just U$' . $game->getProductPrice() . '<br>';
+    }
+    ?>
     <p></p>
 
 </div>

@@ -24,8 +24,10 @@ class Dao
                    game_genre,
                    game_release_date,
                    game_platform,
+                   game_stock,
                    developers.dev_name,
-                   publishers.publi_name
+                   publishers.publi_name,
+                   game_video
                    FROM games
                    JOIN developers ON games.game_developer_id = developers.dev_id
                    JOIN publishers ON games.game_publisher_id = publishers.publi_id;';
@@ -87,7 +89,8 @@ class Dao
                 platform: $gameData['game_platform'],
                 developer: $gameData['dev_name'],
                 publisher: $gameData['publi_name'],
-                stockQuantity: $gameData['game_stock']
+                stockQuantity: $gameData['game_stock'],
+                gameVideo: $gameData['game_video']
             );
         }
         return $allProducts;
