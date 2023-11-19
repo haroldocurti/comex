@@ -10,11 +10,22 @@ class Order
 {
     private readonly int $orderId;
     public function __construct(
+        private int $order_Id,
         private readonly Client $client,
         private array          $products)
 
     {
-        $this->orderId =  $this->generateOrderId();
+
+    }
+
+    public function getOrderId(): int
+    {
+        return $this->order_Id;
+    }
+
+    public function setOrderId(int $order_Id): void
+    {
+        $this->order_Id = $order_Id;
     }
     private function generateOrderId(): int{
         return date('Ymd') . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
@@ -36,7 +47,7 @@ class Order
     }
     public function getOrderSummary(): string {
         $totalSpent = 0;
-        $summary = "Order ID: $this->orderId" . PHP_EOL;
+        $summary = "Order ID: $this->order_Id" . PHP_EOL;
         $summary .= "Client: {$this->client->getName()}" . PHP_EOL;
         $summary .= "Products:" . PHP_EOL;
 
@@ -62,6 +73,7 @@ class Order
 
     public function getProducts():array
     {
+
         return $this->products;
     }
 

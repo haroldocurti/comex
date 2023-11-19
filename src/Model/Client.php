@@ -6,13 +6,27 @@ class Client
     private array $orders = [];
     private string $totalSpent = '0';
     public function __construct(
-        private readonly string $cpf,
+        private string          $client_id,
+        private  string         $cpf,
         private string          $name,
         private string          $email,
         private string          $phoneNumber,
         private string          $address)
     {
+        $this->cpf = $this->formatCPF($cpf);
+        $this->name = $this->setName($name);
+        $this->phoneNumber = $this->setPhoneNumber($phoneNumber);
 
+    }
+
+    public function getClientId(): string
+    {
+        return $this->client_id;
+    }
+
+    public function setClientId(string $client_id): void
+    {
+        $this->client_id = $client_id;
     }
 
 
@@ -31,9 +45,17 @@ class Client
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name): string
     {
-        $this->name = $name;
+        if ($this->hasAtLeastTwoNames($name)) {
+            return $name;
+        }
+        return $name;
+    }
+    function hasAtLeastTwoNames(string $input): bool
+    {
+        $trimmedInput = trim($input);
+        return strpos($trimmedInput, ' ') !== false;
     }
 
     public function getPhoneNumber(): string
@@ -41,9 +63,9 @@ class Client
         return $this->formatPhoneNumber($this->phoneNumber);
     }
 
-    public function setPhoneNumber(string $phoneNumber): void
+    public function setPhoneNumber(string $phoneNumber): string
     {
-        $this->phoneNumber = $this->formatPhoneNumber($this->phoneNumber);
+        return $this->formatPhoneNumber($this->phoneNumber);
     }
 
     public function getTotalSpent(): string
@@ -71,7 +93,7 @@ class Client
         return $this->email;
     }
 
-    private function setOrders(array $orders): void
+    public function setOrders(array $orders): void
     {
         $this->orders = $orders;
     }
@@ -86,4 +108,15 @@ class Client
         }
         return $phoneNumber;
     }
+
+    function formatCPF(string $input): string
+    {
+        $digits = preg_replace('/\D/', '', $input);
+        if (strlen($digits) < 11) {
+            return $input; // Not a valid CPF
+        }
+        $formattedCPF = vsprintf('%3s.%3s.%3s-%2s', str_split($digits, 3));
+        return $formattedCPF;
+    }
+
 }
