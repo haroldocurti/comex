@@ -8,12 +8,7 @@ class PDOClientsRepository
 {
     public function allClients($clients): array
     {
-        foreach ($clients as $index => $client) {
-            echo $client->getName() . PHP_EOL .
-                ' Phone '. $client->getPhoneNumber() .
-                ' and Email ' . $client->getEmail() . PHP_EOL;
-        }
-        return $clients;
+     return $clients;
     }
 
     public function clientById(Dao $dao, int $client_id): Client

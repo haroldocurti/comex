@@ -50,6 +50,7 @@ class Client
         if ($this->hasAtLeastTwoNames($name)) {
             return $name;
         }
+        return $name;
     }
     function hasAtLeastTwoNames(string $input): bool
     {

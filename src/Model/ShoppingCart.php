@@ -9,8 +9,8 @@ use Haroldocurti\Comex\Service\Shipping;
 
 class ShoppingCart
 {
-    public function __construct(private readonly Client $client,
-                                private Stock $stock,
+    private Client $client;
+    public function __construct(
                                 private array $cartProducts = [])
     {
 
@@ -83,5 +83,11 @@ class ShoppingCart
     public function getCartProducts():array
     {
         return $this->cartProducts;
+    }
+    public function getCartProductsQuantityTopBar(): string{
+        if(count($this->getCartProducts())< 1){
+            return "🛒Cart <small>(empty)</small>";
+        }
+        return "🛒Cart <small>" . count($this->getCartProducts())."</small>";
     }
 }

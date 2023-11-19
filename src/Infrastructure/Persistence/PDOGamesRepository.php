@@ -42,7 +42,7 @@ class PDOGamesRepository implements ProductsRepository
 
         return $this->hydrateGameObj($statement);
     }
-    public function insertGame(Games $game, Dao $dao)
+    public function insertGame(Games $game, Dao $dao): void
     {
         $dao->insertGameProduct($game);
     }

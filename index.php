@@ -1,6 +1,8 @@
 <?php
 include_once './vendor/autoload.php';
 require_once './src/config.php';
+global $gameRepository, $dao, $shoppingCart;
+
 $games = $gameRepository->allProducts($dao->fetchAllGames());
 ?>
 <!DOCTYPE html>
@@ -14,12 +16,14 @@ $games = $gameRepository->allProducts($dao->fetchAllGames());
 <body>
 
 <div class="top-bar">
-    <div class="site-name">🎮Comex Retro Games</div>
+    <div class="site-name"><a href="index.php">🎮Comex Retro Games</a></div>
     <nav>
         <ul>
             <li><a href="game_catalogue.php">Games Catalogue</a></li>
             <li><a href="hardware_catalogue.php">Consoles and Hardware</a></li>
             <li><a href="contact.php">Contact</a></li>
+            <li><a href="shoppingCart.php"><?= $shoppingCart->getCartProductsQuantityTopBar()?></a></li>
+            <li><a href="#">Login</a></li>
         </ul>
     </nav>
 </div>
@@ -33,7 +37,7 @@ $games = $gameRepository->allProducts($dao->fetchAllGames());
             if ($id > count($games) - 4) {
                 echo '<div class="product-card">';
                 echo '<h3>' . $game->getProductName() . '</h3>(by ' . $game->getPublisher() . ')';
-                echo '<p><button>Buy it now</button> for just U$' . $game->getProductPrice() . '<br>';
+                echo '<p><a href="">Buy it now</a> for just U$' . $game->getProductPrice() . '<br>';
                 echo '⬇Watch a Video Preview!⬇</p>';
                 echo $game->getGameVideo();
                 echo '</div>';

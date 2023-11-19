@@ -1,6 +1,7 @@
 <?php
 include_once './vendor/autoload.php';
 require_once './src/config.php';
+global $gameRepository, $dao;
 $games = $gameRepository->allProducts($dao->fetchAllGames());
 ?>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@ $games = $gameRepository->allProducts($dao->fetchAllGames());
 <div class="top-bar">
     <nav>
         <ul>
-            <li><a href="product_form.php">Product Form</a></li>
+            <li><a href="products.php">Products Management</a></li>
             <li><a href="client_form.php">Client Form</a></li>
             <li><a href="orders.php">Orders</a></li>
         </ul>

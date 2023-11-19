@@ -111,7 +111,7 @@ class Dao
         }
         return $allProducts;
     }
-    public function hydrateClientObj(PDOStatement $statement): array
+    public function  hydrateClientObj(PDOStatement $statement): array
     {
         $allClients = [];
         while ($clientData = $statement->fetch(PDO::FETCH_ASSOC)){

@@ -4,6 +4,11 @@ body {
     margin: 0;
     padding: 0;
 }
+a {
+    text-decoration: none;
+    color: bisque;
+    font-weight: bold;
+}
 .top-bar {
     background-color: darkred;
     color: white;
@@ -15,6 +20,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.top-bar a {
+    text-decoration: none;
+    color: bisque;
+    font-weight: bold;
 }
 .site-name {
     font-size: 24px;
